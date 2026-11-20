@@ -36,3 +36,10 @@ A location is only recognised when both line and column are present. V8 always e
   - `line` (number | null) — 1-based, null when absent.
   - `column` (number | null) — 1-based, null when absent.
 - Throws `TypeError` if `line` is not a string.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
